@@ -4,7 +4,7 @@ import os
 
 app = FastAPI()
 
-@app.get("/webhook")
+@app.post("/webhook")
 async def webhook():
     # Obtén el directorio actual donde se ejecuta el script
     repo_directory = os.getcwd()
@@ -14,8 +14,8 @@ async def webhook():
         raise HTTPException(status_code=500, detail="Directorio actual no encontrado")
 
     try:
-        # Ejecuta el comando git pull en el directorio actual
-        result = subprocess.run(["git", "pull"], cwd=repo_directory, capture_output=True, text=True, check=True)
+        # Ejecuta el comando git pull con sudo
+        result = subprocess.run(["sudo", "git", "pull"], cwd=repo_directory, capture_output=True, text=True, check=True)
         return {"status": "success", "output": result.stdout}
     except subprocess.CalledProcessError as e:
         # Maneja errores en la ejecución del comando
