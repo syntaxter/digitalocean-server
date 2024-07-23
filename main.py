@@ -1,16 +1,11 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 import subprocess
 import os
 
 app = FastAPI()
 
-class WebhookPayload(BaseModel):
-    # Define aquí los campos esperados en la petición
-    event: str
-
-@app.get("/webhook")
-async def webhook(payload: WebhookPayload):
+@app.post("/webhook")
+async def webhook():
     # Obtén el directorio actual donde se ejecuta el script
     repo_directory = os.getcwd()
 
@@ -25,4 +20,3 @@ async def webhook(payload: WebhookPayload):
     except subprocess.CalledProcessError as e:
         # Maneja errores en la ejecución del comando
         raise HTTPException(status_code=500, detail=f"Error al ejecutar git pull: {e.stderr}")
-
