@@ -9,7 +9,7 @@ class WebhookPayload(BaseModel):
     # Define aquí los campos esperados en la petición
     event: str
 
-@app.post("/webhook")
+@app.get("/webhook")
 async def webhook(payload: WebhookPayload):
     # Obtén el directorio actual donde se ejecuta el script
     repo_directory = os.getcwd()
