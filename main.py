@@ -4,7 +4,7 @@ import os
 
 app = FastAPI()
 
-@app.post("/webhook")
+@app.get("/webhook")
 async def webhook():
     # Obtén el directorio actual donde se ejecuta el script
     repo_directory = os.getcwd()
