@@ -19,4 +19,4 @@ async def webhook():
         return {"status": "success", "output": result.stdout}
     except subprocess.CalledProcessError as e:
         # Maneja errores en la ejecución del comando
-        raise HTTPException(status_code=500, detail=f"Error al ejecutar git pull: {e.stderr}")
+        raise HTTPException(status_code=500, detail=repo_directory)
